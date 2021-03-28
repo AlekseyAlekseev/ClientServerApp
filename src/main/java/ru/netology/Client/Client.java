@@ -6,11 +6,12 @@ import ru.netology.Server.Server;
 import java.io.*;
 import java.net.Socket;
 
-public class Client implements AutoCloseable {
+public class Client {
 
     public static void main(String[] args) {
 
-        try (// адрес - локальный хост, порт - 7777, такой же как у сервера
+        try (MyClosable myClosable = new MyClosable();
+             // адрес - локальный хост, порт - 7777, такой же как у сервера
              Socket clientSocket = new Socket("localhost", Server.SERVER_PORT);
 
              //  у сервера доступ на соединение
@@ -34,10 +35,5 @@ public class Client implements AutoCloseable {
         } catch (Exception e) {
             System.out.println(e);
         }
-    }
-
-    @Override
-    public void close() throws Exception {
-        System.out.println("Клиент выключен");
     }
 }
